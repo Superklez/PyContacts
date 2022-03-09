@@ -67,7 +67,7 @@ def update_contact(contacts: dict) -> bool:
     # Get the contact to update
     match_id = list(match.keys())[0]
     contact_to_update = contacts[match_id]
-    updated_contact = {field: '' for field in FIELDS}
+    updated_contact = contact_to_update.copy()
 
     # Ask which fields to update
     for field in FIELDS:
@@ -77,8 +77,6 @@ def update_contact(contacts: dict) -> bool:
 
         if ask_yes_or_no(update_prompt):
             updated_contact[field] = input(input_prompt).strip()
-        else:
-            updated_contact[field] = contact_to_update.get(field, '')
 
     if not verify_contact(updated_contact):
         return not successful
