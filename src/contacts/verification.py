@@ -4,7 +4,7 @@ from contacts.utils import search_contacts
 FIELDS = get_fields()
 
           
-def validate_contact(contact: dict) -> bool:
+def verify_contact(contact: dict) -> bool:
     '''
     Checks if a contact is valid. The passed contact must have the following
     keys:
@@ -30,27 +30,27 @@ def validate_contact(contact: dict) -> bool:
 
         # Check if mobile phone number is valid
         elif field == "mobile_phone_number" or field == "home_phone_number":
-            # Only validate the phone number if there is one.
-            if contact[field] and not validate_phone_number(contact[field]):
+            # Only verify the phone number if there is one.
+            if contact[field] and not verify_phone_number(contact[field]):
                 print(f"Invalid {' '.join(field.split('_'))}.")
                 return not valid
 
         # Check if email address is valid
         elif field == "email_address" and contact[field] \
-                and not validate_email_address(contact[field]):
+                and not verify_email_address(contact[field]):
             print("Invalid email address.")
             return not valid
 
         # Check if address is valid
         elif field == "address" and contact[field] \
-                and not validate_address(contact[field]):
+                and not verify_address(contact[field]):
             print("Invalid address.")
             return not valid
 
     return valid
 
 
-def validate_phone_number(phone_number: str) -> bool:
+def verify_phone_number(phone_number: str) -> bool:
     '''
     Checks if passed argument is a valid phone number. Valid phone numbers take
     the format:
@@ -73,7 +73,7 @@ def validate_phone_number(phone_number: str) -> bool:
     return valid
 
 
-def validate_email_address(email_address: str) -> bool:
+def verify_email_address(email_address: str) -> bool:
     '''
     Checks if the passed argument is a valid email address. Valid email
     addresses take the format:
@@ -98,7 +98,7 @@ def validate_email_address(email_address: str) -> bool:
     return valid
 
 
-def validate_address(address: str) -> bool:
+def verify_address(address: str) -> bool:
     '''
     This is a relatively simple validation test for a given address. It is
     valid only when the address contains a combination of alphanumeric
@@ -115,7 +115,7 @@ def validate_address(address: str) -> bool:
     return valid
 
 
-def check_unique_contact(contact: dict, contacts: dict) -> bool:
+def verify_unique_contact(contact: dict, contacts: dict) -> bool:
     '''
     Checks if the contact is already in the contacts.
     '''

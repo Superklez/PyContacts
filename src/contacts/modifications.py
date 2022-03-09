@@ -3,7 +3,7 @@ This module contains functions needed to modify the contact list.
 '''
 from contacts.fields import get_fields
 from contacts.utils import ask_yes_or_no, search_contacts
-from contacts.validation import validate_contact, check_unique_contact
+from contacts.verification import verify_contact, verify_unique_contact
 
 FIELDS = get_fields()
 
@@ -21,9 +21,9 @@ def add_contact(contacts: dict) -> bool:
         prompt = ' '.join(s.capitalize() for s in field.split('_')) + ": "
         new_contact[field] = input(prompt).strip()
 
-    if not validate_contact(new_contact):
+    if not verify_contact(new_contact):
         return not successful
-    if not check_unique_contact(new_contact, contacts):
+    if not verify_unique_contact(new_contact, contacts):
         print("A contact with this name already exists.")
         return not successful
 
@@ -80,9 +80,9 @@ def update_contact(contacts: dict) -> bool:
         else:
             updated_contact[field] = contact_to_update[field]
 
-    if not validate_contact(updated_contact):
+    if not verify_contact(updated_contact):
         return not successful
-    if not check_unique_contact(updated_contact, contacts):
+    if not verify_unique_contact(updated_contact, contacts):
         print("A contact with this name already exists.")
         return not successful
 
