@@ -36,4 +36,4 @@ The `list` command prints all contacts in the contact list in alphabetical
 order (first by the last name then by the first name).
 
 When adding a new contact, various validations are performed. For more
-details on what makes a contact valid, please see `contacts.validation`.
+details on what makes a contact valid, please see `src/contacts/validation.py`.
