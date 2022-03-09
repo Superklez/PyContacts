@@ -13,7 +13,7 @@ def validate_contact(contact: dict) -> bool:
         - mobile_phone_num
         - home_phone_num
         - email_address
-        - address (not handled)
+        - address
     '''
     valid = True
 
@@ -39,6 +39,12 @@ def validate_contact(contact: dict) -> bool:
         elif field == "email_address" and contact[field] \
                 and not validate_email_address(contact[field]):
             print("Invalid email address.")
+            return not valid
+
+        # Check if address is valid
+        elif field == "address" and contact[field] \
+                and not validate_address(contact[field]):
+            print("Invalid address.")
             return not valid
 
     return valid
@@ -88,6 +94,23 @@ def validate_email_address(email_address: str) -> bool:
         return not valid
     elif not suffix.split('.')[-1].isalpha():
         return not valid
+
+    return valid
+
+
+def validate_address(address: str) -> bool:
+    '''
+    This is a relatively simple validation test for a given address. It is
+    valid only when the address contains a combination of alphanumeric
+    characters, dots, commas, and spaces. There must also be at least
+    one alphanumeric character.
+    '''
+    valid = True
+    if any(not c.isalnum() and c != '.' and c != ',' and c != ' ' for c in
+            address):
+        return not valid
+    elif any(c.isalnum() for c in address):
+        return valid
 
     return valid
 
