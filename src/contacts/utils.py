@@ -2,6 +2,9 @@
 This module contains utility functions such.
 '''
 import os
+from contacts.fields import get_fields
+
+FIELDS = get_fields()
 
 
 def display_welcome() -> None:
@@ -33,20 +36,15 @@ def list_contacts(contacts: dict) -> None:
     for i, contact in enumerate(sorted_contacts):
         first_name = contacts[contact]["first_name"]
         last_name = contacts[contact]["last_name"]
-        mobile_phone_num = contacts[contact]["mobile_phone_number"]
-        home_phone_num = contacts[contact]["home_phone_number"]
-        email_address = contacts[contact]["email_address"]
-        address = contacts[contact]["address"]
 
         print(f"{i + 1}. {last_name}, {first_name}")
-        if mobile_phone_num:
-            print(f"\tMobile Phone Number: {mobile_phone_num}")
-        if home_phone_num:
-            print(f"\tHome Phone Number: {home_phone_num}")
-        if email_address:
-            print(f"\tEmail Address: {email_address}")
-        if address:
-            print(f"\tAddress: {address}")
+        for field in FIELDS:
+            if field == "first_name" or field == "last_name":
+                continue
+            field_proper = ' '.join(s.capitalize() for s in field.split('_'))
+            data = contacts[contact].get(field, '')
+            if data:
+                print(f"\t{field_proper}: {data}")
 
 
 def sort_contacts(contacts: dict) -> list:
