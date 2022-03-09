@@ -78,13 +78,19 @@ def update_contact(contacts: dict) -> bool:
         if ask_yes_or_no(update_prompt):
             updated_contact[field] = input(input_prompt).strip()
         else:
-            updated_contact[field] = contact_to_update[field]
+            updated_contact[field] = contact_to_update.get(field, '')
 
     if not verify_contact(updated_contact):
         return not successful
-    if not verify_unique_contact(updated_contact, contacts):
-        print("A contact with this name already exists.")
-        return not successful
+
+    same_first_name = updated_contact["first_name"] == \
+        contact_to_update["first_name"]
+    same_last_name = updated_contact["last_name"] == \
+        contact_to_update["last_name"]
+    if not same_first_name or not same_last_name:
+        if not verify_unique_contact(updated_contact, contacts):
+            print("A contact with this name already exists.")
+            return not successful
 
     contacts[match_id] = updated_contact
     return successful
