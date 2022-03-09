@@ -3,7 +3,7 @@ This module contains functions needed to modify the contact list.
 '''
 from contacts.fields import get_fields
 from contacts.utils import ask_yes_or_no, search_contacts
-from contacts.verification import verify_contact, verify_unique_contact
+from contacts.verifications import verify_contact, verify_unique_contact
 
 FIELDS = get_fields()
 
